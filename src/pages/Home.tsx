@@ -37,14 +37,18 @@ function Home() {
         <div>
             <h1 className='text-2xl p-4 text-center text-white bg-blue-800'>CSR Portal</h1>
 
-            <div className='flex justify-center pl-4 mt-2 mb-2 pr-4 w-full'>
-                <input className='pl-1' type='text' placeholder='Search by name or email' onChange={filterUserBySearch}/>
+            <div className='flex justify-center pl-4 mt-2 mb-2 pr-4'>
+                <input className='pl-1 w-full' type='text' placeholder='Search by name or email' onChange={filterUserBySearch}/>
             </div>
 
             <div className='flex flex-col pl-4 pr-4 gap-1'>
                 {displayedUsers.map(user => {
                     return (
-                        <a key={user.id} href={`users/${user.id}`}>{user.firstName} {user.lastName}</a>
+                        <a key={user.id} href={`users/${user.id}`}
+                        className="border pl-2 pr-2 cursor-pointer hover:bg-slate-100 hover:border-black"
+                        >
+                            {user.firstName} {user.lastName}
+                        </a>
                     )
                 })}
             </div>
