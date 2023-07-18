@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import Home from './pages/Home';
 
 function App() {
 
   return (
     <>
-      <h1 className='text-2xl text-center'>CSR Portal</h1>
+      <Home />
     </>
   )
 }
