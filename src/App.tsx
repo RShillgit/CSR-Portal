@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />}/>
-          <Route path='/user/:userId' element={<User />}/>
+          <Route path='/users/:userId' element={<User />}/>
           <Route path='*' element={<NotFound />}/>
         </Routes>
       </BrowserRouter>
