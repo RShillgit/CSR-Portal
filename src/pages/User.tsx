@@ -120,7 +120,7 @@ function User() {
                 <div className="flex justify-between items-center text-white bg-blue-800 pl-4 pr-4">
                     <a className="cursor-pointer text-2xl" onClick={triggerBackButton}>{"<"}</a>
                     <h1 className='text-lg p-4 text-center'>User Settings</h1>
-                    <a className="cursor-pointer text-2xl" href="/">x</a>
+                    <a className="cursor-pointer text-2xl" onClick={() => navigate("/")}>x</a>
                 </div>
 
                 <div className="p-4 border">

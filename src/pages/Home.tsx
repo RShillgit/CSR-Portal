@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useUserContext } from "../context/userContext";
 import { User } from "../types/userTypes";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
 
     const { users } = useUserContext();
+
+    const navigate = useNavigate();
 
     const [displayedUsers, setDisplayedUsers] = useState<User[]>(users);
 
@@ -44,7 +47,7 @@ function Home() {
             <div className='flex flex-col pl-4 pr-4 gap-1'>
                 {displayedUsers.map(user => {
                     return (
-                        <a key={user.id} href={`users/${user.id}`}
+                        <a key={user.id} onClick={() => navigate(`users/${user.id}`)}
                         className="border pl-2 pr-2 cursor-pointer hover:bg-slate-100 hover:border-black"
                         >
                             {user.firstName} {user.lastName}
