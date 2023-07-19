@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import { User } from "../types/userTypes";
+import { Purchase, Subscription, User } from "../types/userTypes";
 import { fetchUserData } from "../utils/helperFunctions";
 
 type UserContextProviderProps = {
@@ -9,6 +9,9 @@ type UserContextProviderProps = {
 type UserContext = {
     users: User[],
     userPutRequest: (body: User) => void,
+    membershipPostRequest: (body: Subscription) => void,
+    membershipDeleteRequest: (body: Subscription) => void,
+    purchasePutRequest: (body: Purchase) => void,
 }
 
 const userContext = createContext({} as UserContext);
@@ -37,8 +40,29 @@ export function UserContextProvider( { children }: UserContextProviderProps ) {
 
     }
 
+    /*
+        A fake POST request that will add a new membership.
+    */
+    const membershipPostRequest = (body: Subscription) => {
+        console.log(body)
+    }
+
+    /*
+        A fake DELETE request that will delete an existing membership.
+    */
+    const membershipDeleteRequest = (body: Subscription) => {
+        console.log(body)
+    }
+
+    /*
+        A fake PUT request that will update purchase information by id.
+    */
+    const purchasePutRequest = (body: Subscription) => {
+        console.log(body)
+    }
+
     return (
-        <userContext.Provider value={{users, userPutRequest}}>
+        <userContext.Provider value={{users, userPutRequest, membershipPostRequest, membershipDeleteRequest, purchasePutRequest}}>
             {children}
         </userContext.Provider>
     )

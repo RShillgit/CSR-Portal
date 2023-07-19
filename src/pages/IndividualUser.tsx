@@ -2,12 +2,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useUserContext } from "../context/userContext";
 import React, { useEffect, useState } from "react";
 import { Purchase, Subscription, User } from "../types/userTypes";
+import { v4 as uuid } from 'uuid';
 
 function IndividualUser() {
 
     const { userId } = useParams();
 
-    const { users, userPutRequest } = useUserContext();
+    const { users, userPutRequest, membershipPostRequest, membershipDeleteRequest, purchasePutRequest } = useUserContext();
 
     const navigate = useNavigate();
 
@@ -18,14 +19,19 @@ function IndividualUser() {
     const [membershipSelected, setMembershipSelected] = useState(false);
     const [purchaseHistorySelected, setPurchaseHistorySelected] = useState(false);
 
-    // State varaibles for editing selected tab information
+    // State varaible for editing account information
     const [editingAccountInformation, setEditingAccountInformation] = useState(false);
-    const [editingMembership, setEditingMembership] = useState(false);
+    
+    // State varaible for adding a membership
+    const [addingMembership, setAddingMembership] = useState(false);
+
     const [editingPurchaseHistory, setEditingPurchaseHistory] = useState(false);
 
-    // State variables for the edit field information
+    // State variable for the edit account information field 
     const [editedAccountInputs, setEditedAccountInputs] = useState<User | undefined>(selectedUser);
-    const [editedMembershipInputs, SetEditedMembershipInputs] = useState<Subscription>();
+    
+    const [addedMembershipInputs, SetAddedMembershipInputs] = useState<Subscription>();
+    
     const [editedPurchaseInputs, setEditedPurchaseInputs] = useState<Purchase>();
 
     // State that displays correct information based on the selected tab
@@ -49,7 +55,7 @@ function IndividualUser() {
                             </div>
 
                             <form className="flex flex-col gap-2" onSubmit={(e) => editingAccountInformationFormSubmit(e)}>
-                                <label className="flex justify-between lg:justify-start gap-2">
+                                <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     First Name:
                                     <input type="text" value={editedAccountInputs?.firstName}
                                         className="border pl-1"
@@ -62,7 +68,7 @@ function IndividualUser() {
                                         }}
                                     />
                                 </label>
-                                <label className="flex justify-between lg:justify-start gap-2">
+                                <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     Last Name:
                                     <input type="text" value={editedAccountInputs?.lastName}
                                         className="border pl-1"
@@ -75,7 +81,7 @@ function IndividualUser() {
                                         }}
                                     />
                                 </label>
-                                <label className="flex justify-between lg:justify-start gap-2">
+                                <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     Email:
                                     <input type="text" value={editedAccountInputs?.email}
                                         className="border pl-1"
@@ -88,7 +94,7 @@ function IndividualUser() {
                                         }}
                                     />
                                 </label>
-                                <label className="flex justify-between lg:justify-start gap-2">
+                                <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     Phone Number:
                                     <input type="text" value={editedAccountInputs?.phoneNumber}
                                         className="border pl-1"
@@ -136,8 +142,32 @@ function IndividualUser() {
         else if (membershipSelected) {
 
             // Edit membership tab
-            if (editingMembership) {
-                console.log("edit membership", editingMembership);
+            if (addingMembership) {
+                setTabSelectionDisplay(() => {
+                    return (
+                        <div className="flex flex-col pl-4 pr-4 gap-2 mt-4">
+    
+                            <div className="flex justify-between items-center">
+                                <h2 className="text-xl">Adding Memberships</h2>
+                                <button onClick={cancelEditInformation} className="border rounded-lg p-2">Cancel</button>
+                            </div>
+        
+                            <form className="flex flex-col gap-2" onSubmit={(e) => addingMembershipFormSubmit(e)}>
+
+                                <label className="flex justify-between md:justify-start lg:justify-start gap-2">
+                                    Membership Type:
+                                    <input className="border pl-1" type="text" id="add-membership-type"/>
+                                </label>
+                                <label className="flex justify-between md:justify-start lg:justify-start gap-2">
+                                    Membership Cost:
+                                    <input className="border pl-1" type="number" min="0.01" step="0.01" id="add-membership-cost"/>
+                                </label>
+
+                                <button className="flex justify-center border">Add</button>
+                            </form>
+                        </div>
+                    )
+                })
             }
 
             // Standard membership tab
@@ -148,7 +178,7 @@ function IndividualUser() {
     
                             <div className="flex justify-between items-center">
                                 <h2 className="text-xl">Memberships</h2>
-                                <button onClick={editInformation} className="border rounded-lg p-2">Edit</button>
+                                <button onClick={editInformation} className="border rounded-lg p-2">Add</button>
                             </div>
         
                             <ol className="flex flex-col list-decimal pl-4 pr-4">
@@ -184,7 +214,42 @@ function IndividualUser() {
 
             // Edit purchase history tab
             if (editingPurchaseHistory) {
-                console.log("edit purchase history", editingPurchaseHistory)
+                setTabSelectionDisplay(() => {
+                    return (
+                        <div className="flex flex-col pl-4 pr-4 gap-2 mt-4">
+    
+                            <div className="flex justify-between items-center">
+                                <h2 className="text-xl">Editing Purchases</h2>
+                                <button onClick={cancelEditInformation} className="border rounded-lg p-2">Cancel</button>
+                            </div>
+    
+                            <ol className="flex flex-col list-decimal pl-4 pr-4">
+                                {selectedUser?.purchases && selectedUser?.purchases.length > 0
+                                    ?
+                                    <>
+                                        {selectedUser?.purchases.map(purchase => {
+                                            return (
+                                                <div key={purchase.id} className="flex flex-col w-max">
+                                                    <li>${purchase.cost} - {purchase.type}</li>
+                                                    <span className="flex justify-end text-sm text-gray-600">
+                                                        {purchase.date}
+                                                    </span>
+                                                </div>
+                                            )
+                                        })}
+                                    </>
+                                    :
+                                    <>
+                                        <div>
+                                            <p>No Purchases</p>
+                                        </div>
+                                    </>
+                                }
+    
+                            </ol>
+                        </div>
+                    )
+                })
             }
 
             // Standard purchase history tab
@@ -242,7 +307,7 @@ function IndividualUser() {
                             <p className="p-2" onClick={() => setAccountInformationSelected(true)}>Manage Account Information</p>
                         </div>
                         <div className={`${optionClassAttributes}`}>
-                            <p className="p-2" onClick={() => setMembershipSelected(true)}>Manage Membership</p>
+                            <p className="p-2" onClick={() => setMembershipSelected(true)}>Manage Memberships</p>
                         </div>
                         <div className={`${optionClassAttributes}`}>
                             <p className="p-2" onClick={() => setPurchaseHistorySelected(true)}>Manage Purchase History</p>
@@ -252,7 +317,7 @@ function IndividualUser() {
             })
         }
 
-    }, [accountInformationSelected, membershipSelected, purchaseHistorySelected, editingAccountInformation, editingMembership, editingPurchaseHistory, editedAccountInputs, editedMembershipInputs, editedPurchaseInputs])
+    }, [accountInformationSelected, membershipSelected, purchaseHistorySelected, editingAccountInformation, addingMembership, editingPurchaseHistory, editedAccountInputs, addedMembershipInputs, editedPurchaseInputs])
 
 
     /*
@@ -273,14 +338,14 @@ function IndividualUser() {
 
 
     /*
-        Called when the user clicks the edit button.
+        Called when the user clicks the edit or add button.
         Depending on the tab that is currently selected, 
-        that tabs edit state will be set to true, rendering
-        the correct form information.
+        that tabs edit or add state will be set to true, 
+        rendering the correct form information.
     */
     const editInformation = () => {
         if (accountInformationSelected) setEditingAccountInformation(true);
-        else if (membershipSelected) setEditingMembership(true);
+        else if (membershipSelected) setAddingMembership(true);
         else if (purchaseHistorySelected) setEditingPurchaseHistory(true);
     }
 
@@ -293,7 +358,7 @@ function IndividualUser() {
     */
     const cancelEditInformation = () => {
         if (accountInformationSelected) setEditingAccountInformation(false);
-        else if (membershipSelected) setEditingMembership(false);
+        else if (membershipSelected) setAddingMembership(false);
         else if (purchaseHistorySelected) setEditingPurchaseHistory(false);
     }
 
@@ -307,6 +372,46 @@ function IndividualUser() {
         e.preventDefault();
         if (editedAccountInputs) userPutRequest(editedAccountInputs);
         setEditingAccountInformation(false);
+        return;
+    }
+
+
+    /*
+        Called when submitting the edit membership form.
+        Handles the form submit by calling the fake PUT request from the user 
+        context which will update the User's local storage and state information.
+    */
+    const addingMembershipFormSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const newMembershipType = document.getElementById("add-membership-type") as HTMLInputElement;
+        const newMembershipCost = document.getElementById("add-membership-cost") as HTMLInputElement;
+
+        if (newMembershipType && newMembershipCost) {
+
+            const randomId: string = uuid();
+
+            const newMembership: Subscription = {
+                id: randomId,
+                type: newMembershipType.value,
+                cost: Number(newMembershipCost.value)
+            }
+            membershipPostRequest(newMembership);
+        }
+        setAddingMembership(false);
+        return;
+    }
+
+
+    /*
+        Called when submitting the edit membership form.
+        Handles the form submit by calling the fake PUT request from the user 
+        context which will update the User's local storage and state information.
+    */
+    const editingPurchaseHistoryFormSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (editedPurchaseInputs) purchasePutRequest(editedPurchaseInputs);
+        setEditingPurchaseHistory(false);
         return;
     }
 
