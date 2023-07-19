@@ -5,147 +5,466 @@
             "firstName": "Elizabeth",
             "lastName": "Meyers",
             "email": "lizmeyers@example.com",
-            "phoneNumber": "555-555-5555"
+            "phoneNumber": "555-555-5555",
+            "subscriptions": [
+                {
+                    "id": "s0",
+                    "type": "Premium",
+                    "cost": 60.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p0",
+                    "type": "Premium Subscription",
+                    "cost": 60.00,
+                    "date": "07/15/2023"
+                }
+            ]
         },
         {
             "id": 1,
             "firstName": "John",
             "lastName": "Doe",
             "email": "jdoe123@example.com",
-            "phoneNumber": "555-554-5555"
+            "phoneNumber": "555-554-5555",
+            "subscriptions": [],
+            "purchases": []
         },
         {
             "id": 2,
             "firstName": "Matt",
             "lastName": "Smith",
             "email": "matt.smith@example.com",
-            "phoneNumber": "555-553-5555"
+            "phoneNumber": "555-553-5555",
+            "subscriptions": [
+                {
+                    "id": "s1",
+                    "type": "Basic",
+                    "cost": 20.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p1",
+                    "type": "Basic Subscription",
+                    "cost": 20.00,
+                    "date": "06/12/2023"
+                },
+                {
+                    "id": "p2",
+                    "type": "Car Wax",
+                    "cost": 13.99,
+                    "date": "06/12/2023"
+                }
+            ]
         },
         {
             "id": 3,
             "firstName": "Brittany",
             "lastName": "Brown",
             "email": "brit.brown7@example.com",
-            "phoneNumber": "555-552-5552"
+            "phoneNumber": "555-552-5552",
+            "subscriptions": [],
+            "purchases": []
         },
         {
             "id": 4,
             "firstName": "Amy",
             "lastName": "Waters",
             "email": "awater@example.com",
-            "phoneNumber": "555-551-5555"
+            "phoneNumber": "555-551-5555",
+            "subscriptions": [
+                {
+                    "id": "s2",
+                    "type": "Supreme",
+                    "cost": 90.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p3",
+                    "type": "Supreme Subscription",
+                    "cost": 90.00,
+                    "date": "05/10/2023"
+                }
+            ]
         },
         {
             "id": 5,
             "firstName": "Yara",
             "lastName": "Holt",
             "email": "yaraholt77@example.com",
-            "phoneNumber": "555-550-5555"
+            "phoneNumber": "555-550-5555",
+            "subscriptions": [
+                {
+                    "id": "s3",
+                    "type": "Basic",
+                    "cost": 20.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p4",
+                    "type": "Basic Subscription",
+                    "cost": 20.00,
+                    "date": "02/07/2023"
+                }
+            ]
         },
         {
             "id": 6,
             "firstName": "Harris",
             "lastName": "Waiter",
             "email": "hwait@example.com",
-            "phoneNumber": "555-555-5550"
+            "phoneNumber": "555-555-5550",
+            "subscriptions": [
+                {
+                    "id": "s4",
+                    "type": "Basic",
+                    "cost": 20.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p5",
+                    "type": "Basic Subscription",
+                    "cost": 20.00,
+                    "date": "07/07/2023"
+                }
+            ]
         },
         {
             "id": 7,
             "firstName": "Jax",
             "lastName": "Burton",
             "email": "JBurt@example.com",
-            "phoneNumber": "555-545-5555"
+            "phoneNumber": "555-545-5555",
+            "subscriptions": [
+                {
+                    "id": "s5",
+                    "type": "Premium",
+                    "cost": 60.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p6",
+                    "type": "Premium Subscription",
+                    "cost": 60.00,
+                    "date": "07/19/2023"
+                }
+            ]
         },
         {
             "id": 8,
             "firstName": "Lilly",
             "lastName": "Ho",
             "email": "holil@example.com",
-            "phoneNumber": "555-535-5555"
+            "phoneNumber": "555-535-5555",
+            "subscriptions": [
+                {
+                    "id": "s6",
+                    "type": "Supreme",
+                    "cost": 90.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p6",
+                    "type": "Supreme Subscription",
+                    "cost": 90.00,
+                    "date": "07/16/2023"
+                }
+            ]
         },
         {
             "id": 9,
             "firstName": "Nancy",
             "lastName": "Patel",
             "email": "patel.nancy@example.com",
-            "phoneNumber": "555-525-5555"
+            "phoneNumber": "555-525-5555",
+            "subscriptions": [
+                {
+                    "id": "s7",
+                    "type": "Basic",
+                    "cost": 20.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p6",
+                    "type": "Basic Subscription",
+                    "cost": 20.00,
+                    "date": "06/16/2023"
+                }
+            ]
         },
         {
             "id": 10,
             "firstName": "Tyler",
             "lastName": "Wang",
             "email": "Twang1234@example.com",
-            "phoneNumber": "555-515-5555"
+            "phoneNumber": "555-515-5555",
+            "subscriptions": [
+                {
+                    "id": "s8",
+                    "type": "Basic",
+                    "cost": 20.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p7",
+                    "type": "Basic Subscription",
+                    "cost": 20.00,
+                    "date": "04/16/2023"
+                },
+                {
+                    "id": "p8",
+                    "type": "Car Wax",
+                    "cost": 13.99,
+                    "date": "05/12/2023"
+                }
+            ]
         },
         {
             "id": 11,
             "firstName": "Lia",
             "lastName": "Hill",
             "email": "Lia.Hill@example.com",
-            "phoneNumber": "555-505-5555"
+            "phoneNumber": "555-505-5555",
+            "subscriptions": [
+                {
+                    "id": "s9",
+                    "type": "Supreme",
+                    "cost": 90.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p9",
+                    "type": "Supreme Subscription",
+                    "cost": 90.00,
+                    "date": "04/08/2023"
+                },
+                {
+                    "id": "p10",
+                    "type": "Car Wax",
+                    "cost": 13.99,
+                    "date": "05/12/2023"
+                }
+            ]
         },
         {
             "id": 12,
             "firstName": "Allie",
             "lastName": "Gross",
             "email": "alliegross@example.com",
-            "phoneNumber": "555-455-5555"
+            "phoneNumber": "555-455-5555",
+            "subscriptions": [
+                {
+                    "id": "s10",
+                    "type": "Premium",
+                    "cost": 60.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p11",
+                    "type": "Premium Subscription",
+                    "cost": 60.00,
+                    "date": "02/01/2023"
+                },
+                {
+                    "id": "p12",
+                    "type": "Car Wax",
+                    "cost": 13.99,
+                    "date": "02/01/2023"
+                }
+            ]
         },
         {
             "id": 13,
             "firstName": "Liana",
             "lastName": "May",
             "email": "lianamay123@example.com",
-            "phoneNumber": "555-355-5555"
+            "phoneNumber": "555-355-5555",
+            "subscriptions": [
+                {
+                    "id": "s11",
+                    "type": "Basic",
+                    "cost": 20.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p13",
+                    "type": "Basic Subscription",
+                    "cost": 20.00,
+                    "date": "01/01/2023"
+                },
+                {
+                    "id": "p14",
+                    "type": "Car Wax",
+                    "cost": 13.99,
+                    "date": "01/01/2023"
+                }
+            ]
         },
         {
             "id": 14,
             "firstName": "Magnus",
             "lastName": "Rosales",
             "email": "MagnusR22@example.com",
-            "phoneNumber": "555-255-5555"
+            "phoneNumber": "555-255-5555",
+            "subscriptions": [
+                {
+                    "id": "s12",
+                    "type": "Premium",
+                    "cost": 60.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p15",
+                    "type": "Premium Subscription",
+                    "cost": 60.00,
+                    "date": "02/03/2023"
+                }
+            ]
         },
         {
             "id": 15,
             "firstName": "Scott",
             "lastName": "Simon",
             "email": "SSimon1@example.com",
-            "phoneNumber": "555-155-5555"
+            "phoneNumber": "555-155-5555",
+            "subscriptions": [
+                {
+                    "id": "s13",
+                    "type": "Basic",
+                    "cost": 20.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p16",
+                    "type": "Basic Subscription",
+                    "cost": 20.00,
+                    "date": "06/21/2023"
+                }
+            ]
         },
         {
             "id": 16,
             "firstName": "Ty",
             "lastName": "Gibbs",
             "email": "TGibbs15@example.com",
-            "phoneNumber": "555-055-5555"
+            "phoneNumber": "555-055-5555",
+            "subscriptions": [
+                {
+                    "id": "s14",
+                    "type": "Basic",
+                    "cost": 20.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p17",
+                    "type": "Basic Subscription",
+                    "cost": 20.00,
+                    "date": "06/25/2023"
+                }
+            ]
         },
         {
             "id": 17,
             "firstName": "Issac",
             "lastName": "Morse",
             "email": "issac.morse@example.com",
-            "phoneNumber": "555-555-4555"
+            "phoneNumber": "555-555-4555",
+            "subscriptions": [
+                {
+                    "id": "s15",
+                    "type": "Supreme",
+                    "cost": 90.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p18",
+                    "type": "Supreme Subscription",
+                    "cost": 90.00,
+                    "date": "05/24/2023"
+                }
+            ]
         },
         {
             "id": 18,
             "firstName": "Quinn",
             "lastName": "Young",
             "email": "quinn.young@example.com",
-            "phoneNumber": "555-555-3555"
+            "phoneNumber": "555-555-3555",
+            "subscriptions": [
+                {
+                    "id": "s16",
+                    "type": "Supreme",
+                    "cost": 90.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p19",
+                    "type": "Supreme Subscription",
+                    "cost": 90.00,
+                    "date": "07/02/2023"
+                }
+            ]
         },
         {
             "id": 19,
             "firstName": "Tori",
             "lastName": "Booth",
             "email": "TBooth78@example.com",
-            "phoneNumber": "555-555-2555"
+            "phoneNumber": "555-555-2555",
+            "subscriptions": [
+                {
+                    "id": "s17",
+                    "type": "Premium",
+                    "cost": 60.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p20",
+                    "type": "Premium Subscription",
+                    "cost": 60.00,
+                    "date": "07/06/2023"
+                }
+            ]
         },
         {
             "id": 20,
             "firstName": "Giovana",
             "lastName": "Kelly",
             "email": "GioKel8@example.com",
-            "phoneNumber": "555-555-1555"
+            "phoneNumber": "555-555-1555",
+            "subscriptions": [
+                {
+                    "id": "s18",
+                    "type": "Premium",
+                    "cost": 60.00
+                }
+            ],
+            "purchases": [
+                {
+                    "id": "p21",
+                    "type": "Premium Subscription",
+                    "cost": 60.00,
+                    "date": "07/16/2023"
+                }
+            ]
         }
     ]
 }

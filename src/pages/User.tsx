@@ -51,7 +51,33 @@ function User() {
             setTabSelectionDisplay(() => {
                 return (
                     <div className="flex flex-col pl-4 pr-4 gap-2 mt-4">
-                        <p>Membership</p>
+
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-xl">Memberships</h2>
+                            <button className="border rounded-lg p-2">Edit</button>
+                        </div>
+    
+                        <ol className="flex flex-col list-decimal pl-4 pr-4">
+                            {selectedUser?.subscriptions && selectedUser?.subscriptions.length > 0
+                                ?
+                                <>
+                                    {selectedUser?.subscriptions.map(subscription => {
+                                        return (
+                                            <div key={subscription.id}>
+                                                <li>{subscription.type} ${subscription.cost}/mo</li>
+                                            </div>
+                                        )
+                                    })}
+                                </>
+                                :
+                                <>
+                                    <div>
+                                        <p>No Subscriptions</p>
+                                    </div>
+                                </>
+                            }
+
+                        </ol>
                     </div>
                 )
             })
@@ -62,7 +88,36 @@ function User() {
             setTabSelectionDisplay(() => {
                 return (
                     <div className="flex flex-col pl-4 pr-4 gap-2 mt-4">
-                        <p>Purhcase History</p>
+
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-xl">Purchases</h2>
+                            <button className="border rounded-lg p-2">Edit</button>
+                        </div>
+
+                        <ol className="flex flex-col list-decimal pl-4 pr-4">
+                            {selectedUser?.purchases && selectedUser?.purchases.length > 0
+                                ?
+                                <>
+                                    {selectedUser?.purchases.map(purchase => {
+                                        return (
+                                            <div key={purchase.id} className="flex flex-col w-max">
+                                                <li>${purchase.cost} - {purchase.type}</li>
+                                                <span className="flex justify-end text-sm text-gray-600">
+                                                    {purchase.date}
+                                                </span>
+                                            </div>
+                                        )
+                                    })}
+                                </>
+                                :
+                                <>
+                                    <div>
+                                        <p>No Purchases</p>
+                                    </div>
+                                </>
+                            }
+
+                        </ol>
                     </div>
                 )
             })
