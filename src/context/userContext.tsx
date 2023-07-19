@@ -7,7 +7,8 @@ type UserContextProviderProps = {
 }
 
 type UserContext = {
-    users: User[]
+    users: User[],
+    userPutRequest: (body: User) => void,
 }
 
 const userContext = createContext({} as UserContext);
@@ -20,8 +21,24 @@ export function UserContextProvider( { children }: UserContextProviderProps ) {
 
     const [users, setUsers] = useState<User[]>(() => fetchUserData());
 
+    /*
+        A fake PUT request that will update user information by id.
+    */
+    const userPutRequest = (body: User) => {
+        
+        const updatedUsersArray = users.map(user => {
+            if (user.id === body.id) return body;
+            return user
+        });
+
+        setUsers(updatedUsersArray);
+
+        localStorage.setItem('users', JSON.stringify(updatedUsersArray));
+
+    }
+
     return (
-        <userContext.Provider value={{users}}>
+        <userContext.Provider value={{users, userPutRequest}}>
             {children}
         </userContext.Provider>
     )
