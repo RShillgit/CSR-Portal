@@ -387,7 +387,7 @@ function IndividualUser() {
         const newMembershipType = document.getElementById("add-membership-type") as HTMLInputElement;
         const newMembershipCost = document.getElementById("add-membership-cost") as HTMLInputElement;
 
-        if (newMembershipType && newMembershipCost) {
+        if (newMembershipType && newMembershipCost && userId) {
 
             const randomId: string = uuid();
 
@@ -396,7 +396,8 @@ function IndividualUser() {
                 type: newMembershipType.value,
                 cost: Number(newMembershipCost.value)
             }
-            membershipPostRequest(newMembership);
+
+            membershipPostRequest(newMembership, userId);
         }
         setAddingMembership(false);
         return;

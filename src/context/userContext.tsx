@@ -9,7 +9,7 @@ type UserContextProviderProps = {
 type UserContext = {
     users: User[],
     userPutRequest: (body: User) => void,
-    membershipPostRequest: (body: Subscription) => void,
+    membershipPostRequest: (body: Subscription, userId: string) => void,
     membershipDeleteRequest: (body: Subscription) => void,
     purchasePutRequest: (body: Purchase) => void,
 }
@@ -43,8 +43,19 @@ export function UserContextProvider( { children }: UserContextProviderProps ) {
     /*
         A fake POST request that will add a new membership.
     */
-    const membershipPostRequest = (body: Subscription) => {
-        console.log(body)
+    const membershipPostRequest = (body: Subscription, userId: string) => {
+ 
+        const updatedUsersArray = users.map(user => {
+            if (user.id === Number(userId)) {
+                user.subscriptions.push(body);
+                return user;
+            }
+            return user;
+        })
+
+        setUsers(updatedUsersArray);
+
+        localStorage.setItem('users', JSON.stringify(updatedUsersArray));
     }
 
     /*
