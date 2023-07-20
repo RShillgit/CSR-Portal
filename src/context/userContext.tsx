@@ -11,7 +11,6 @@ type UserContext = {
     userPutRequest: (body: User) => void,
     membershipPostRequest: (body: Subscription, userId: string) => void,
     membershipDeleteRequest: (body: Subscription, userId: string) => void,
-    purchasePutRequest: (body: Purchase) => void,
 }
 
 const userContext = createContext({} as UserContext);
@@ -80,15 +79,8 @@ export function UserContextProvider( { children }: UserContextProviderProps ) {
         localStorage.setItem('users', JSON.stringify(updatedUsersArray));
     }
 
-    /*
-        A fake PUT request that will update purchase information by id.
-    */
-    const purchasePutRequest = (body: Purchase) => {
-        console.log(body)
-    }
-
     return (
-        <userContext.Provider value={{users, userPutRequest, membershipPostRequest, membershipDeleteRequest, purchasePutRequest}}>
+        <userContext.Provider value={{users, userPutRequest, membershipPostRequest, membershipDeleteRequest}}>
             {children}
         </userContext.Provider>
     )

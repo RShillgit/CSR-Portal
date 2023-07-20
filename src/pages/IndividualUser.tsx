@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useUserContext } from "../context/userContext";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Purchase, Subscription, User } from "../types/userTypes";
 import { v4 as uuid } from 'uuid';
 
@@ -8,7 +8,7 @@ function IndividualUser() {
 
     const { userId } = useParams();
 
-    const { users, userPutRequest, membershipPostRequest, membershipDeleteRequest, purchasePutRequest } = useUserContext();
+    const { users, userPutRequest, membershipPostRequest, membershipDeleteRequest } = useUserContext();
 
     const navigate = useNavigate();
 
@@ -25,14 +25,11 @@ function IndividualUser() {
     // State varaible for adding a membership
     const [addingMembership, setAddingMembership] = useState(false);
 
-    const [editingPurchaseHistory, setEditingPurchaseHistory] = useState(false);
-
-    // State variable for the edit account information field 
+    // State variable for the edit account information fields 
     const [editedAccountInputs, setEditedAccountInputs] = useState<User | undefined>(selectedUser);
-    
-    const [addedMembershipInputs, SetAddedMembershipInputs] = useState<Subscription>();
-    
-    const [editedPurchaseInputs, setEditedPurchaseInputs] = useState<Purchase>();
+
+    // State varaible for the membership to be deleted
+    const membershipForDeletion = useRef<Subscription | null>();
 
     // State that displays correct information based on the selected tab
     const [tabSelectionDisplay, setTabSelectionDisplay] = useState<JSX.Element>();
@@ -198,12 +195,30 @@ function IndividualUser() {
                                                     </div>
                                                     <div className="flex flex-col gap-1">
                                                         <button className="border">Transfer</button>
-                                                        <button className="border" onClick={() => confirmDeleteMembership(subscription)}>Delete</button>
+                                                        <button className="border" onClick={() => triggerDeleteMembership(subscription)}>Delete</button>
                                                     </div>
                                                 </div>
                                             )
                                         })}
                                     </ol>
+
+                                    <dialog id="deleteMembershipConfirmationModal" className="rounded-xl">
+                                        <div className="p-4 ">                                     
+                                            <h2 className="text-lg">Are you sure you want to delete this membership?</h2>
+                                            <div className="flex gap-2 justify-center">
+
+                                                <button className="border p-1 w-16 rounded-md" onClick={() => {
+                                                    const deleteMembershipConfirmationModal = document.getElementById('deleteMembershipConfirmationModal') as HTMLDialogElement;
+                                                    deleteMembershipConfirmationModal.close();
+                                                }}>No</button>
+
+                                                <button className="border p-1 w-16 rounded-md" onClick={() => {
+                                                    if(membershipForDeletion) confirmDeleteMembership();
+                                                }}>Yes</button>
+
+                                            </div>
+                                        </div>
+                                    </dialog>
                                 </>
                                 :
                                 <>
@@ -222,87 +237,41 @@ function IndividualUser() {
 
         // Purchase History Tab
         else if (purchaseHistorySelected) {
+            setTabSelectionDisplay(() => {
+                return (
+                    <div className="flex flex-col pl-4 pr-4 gap-2 mt-4">
 
-            // Edit purchase history tab
-            if (editingPurchaseHistory) {
-                setTabSelectionDisplay(() => {
-                    return (
-                        <div className="flex flex-col pl-4 pr-4 gap-2 mt-4">
-    
-                            <div className="flex justify-between items-center">
-                                <h2 className="text-xl">Editing Purchases</h2>
-                                <button onClick={cancelEditInformation} className="border rounded-lg p-2">Cancel</button>
-                            </div>
-    
-                            <ol className="flex flex-col list-decimal pl-4 pr-4">
-                                {selectedUser?.purchases && selectedUser?.purchases.length > 0
-                                    ?
-                                    <>
-                                        {selectedUser?.purchases.map(purchase => {
-                                            return (
-                                                <div key={purchase.id} className="flex flex-col w-max">
-                                                    <li>${purchase.cost} - {purchase.type}</li>
-                                                    <span className="flex justify-end text-sm text-gray-600">
-                                                        {purchase.date}
-                                                    </span>
-                                                </div>
-                                            )
-                                        })}
-                                    </>
-                                    :
-                                    <>
-                                        <div>
-                                            <p>No Purchases</p>
-                                        </div>
-                                    </>
-                                }
-    
-                            </ol>
+                        <div className="flex items-center">
+                            <h2 className="text-xl">Purchase History</h2>
                         </div>
-                    )
-                })
-            }
 
-            // Standard purchase history tab
-            else {
-                setTabSelectionDisplay(() => {
-                    return (
-                        <div className="flex flex-col pl-4 pr-4 gap-2 mt-4">
-    
-                            <div className="flex justify-between items-center">
-                                <h2 className="text-xl">Purchases</h2>
-                                <button onClick={editInformation} className="border rounded-lg p-2">Edit</button>
-                            </div>
-    
-                            <ol className="flex flex-col list-decimal pl-4 pr-4">
-                                {selectedUser?.purchases && selectedUser?.purchases.length > 0
-                                    ?
-                                    <>
-                                        {selectedUser?.purchases.map(purchase => {
-                                            return (
-                                                <div key={purchase.id} className="flex flex-col w-max">
-                                                    <li>${purchase.cost} - {purchase.type}</li>
-                                                    <span className="flex justify-end text-sm text-gray-600">
-                                                        {purchase.date}
-                                                    </span>
-                                                </div>
-                                            )
-                                        })}
-                                    </>
-                                    :
-                                    <>
-                                        <div>
-                                            <p>No Purchases</p>
-                                        </div>
-                                    </>
-                                }
-    
-                            </ol>
-                        </div>
-                    )
-                })
-            }
+                        <ol className="flex flex-col list-decimal pl-4 pr-4">
+                            {selectedUser?.purchases && selectedUser?.purchases.length > 0
+                                ?
+                                <>
+                                    {selectedUser?.purchases.map(purchase => {
+                                        return (
+                                            <div key={purchase.id} className="flex flex-col w-max">
+                                                <li>${purchase.cost} - {purchase.type}</li>
+                                                <span className="flex justify-end text-sm text-gray-600">
+                                                    {purchase.date}
+                                                </span>
+                                            </div>
+                                        )
+                                    })}
+                                </>
+                                :
+                                <>
+                                    <div>
+                                        <p>No Purchases</p>
+                                    </div>
+                                </>
+                            }
 
+                        </ol>
+                    </div>
+                )
+            })
         }
 
         // No Tab Selected
@@ -321,14 +290,14 @@ function IndividualUser() {
                             <p className="p-2" onClick={() => setMembershipSelected(true)}>Manage Memberships</p>
                         </div>
                         <div className={`${optionClassAttributes}`}>
-                            <p className="p-2" onClick={() => setPurchaseHistorySelected(true)}>Manage Purchase History</p>
+                            <p className="p-2" onClick={() => setPurchaseHistorySelected(true)}>View Purchase History</p>
                         </div>
                     </div>
                 )
             })
         }
 
-    }, [users, accountInformationSelected, membershipSelected, purchaseHistorySelected, editingAccountInformation, addingMembership, editingPurchaseHistory, editedAccountInputs, addedMembershipInputs, editedPurchaseInputs])
+    }, [users, accountInformationSelected, membershipSelected, purchaseHistorySelected, editingAccountInformation, addingMembership, editedAccountInputs])
 
 
     /*
@@ -357,7 +326,6 @@ function IndividualUser() {
     const editInformation = () => {
         if (accountInformationSelected) setEditingAccountInformation(true);
         else if (membershipSelected) setAddingMembership(true);
-        else if (purchaseHistorySelected) setEditingPurchaseHistory(true);
     }
 
 
@@ -370,7 +338,6 @@ function IndividualUser() {
     const cancelEditInformation = () => {
         if (accountInformationSelected) setEditingAccountInformation(false);
         else if (membershipSelected) setAddingMembership(false);
-        else if (purchaseHistorySelected) setEditingPurchaseHistory(false);
     }
 
     
@@ -424,7 +391,9 @@ function IndividualUser() {
 
     */
     const triggerDeleteMembership = (subscription: Subscription) => {
-        console.log("Open Modal");
+        membershipForDeletion.current = subscription;
+        const deleteMembershipConfirmationModal = document.getElementById('deleteMembershipConfirmationModal') as HTMLDialogElement;
+        deleteMembershipConfirmationModal.showModal();
     }
 
 
@@ -432,25 +401,14 @@ function IndividualUser() {
         Called when confirming the deletion of an existing membership.
 
     */
-    const confirmDeleteMembership = (subscription: Subscription) => {
-        if (userId) {
-            membershipDeleteRequest(subscription, userId);
+    const confirmDeleteMembership = () => {
+        if (userId && membershipForDeletion.current) {
+            const deleteMembershipConfirmationModal = document.getElementById('deleteMembershipConfirmationModal') as HTMLDialogElement;
+            membershipDeleteRequest(membershipForDeletion.current, userId);
+            deleteMembershipConfirmationModal.close();
+            membershipForDeletion.current = null;
         }
     }
-
-
-    /*
-        Called when submitting the edit membership form.
-        Handles the form submit by calling the fake PUT request from the user 
-        context which will update the User's local storage and state information.
-    */
-    const editingPurchaseHistoryFormSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (editedPurchaseInputs) purchasePutRequest(editedPurchaseInputs);
-        setEditingPurchaseHistory(false);
-        return;
-    }
-
 
     return (
         <>
