@@ -4,6 +4,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { Purchase, Subscription, User } from "../types/userTypes";
 import { v4 as uuid } from 'uuid';
 
+import carImg from '../assets/images/car.png';
+import creditCardImg from '../assets/images/credit-card.png';
+import dollarImg from '../assets/images/dollar.png';
+
 function IndividualUser() {
 
     const { userId } = useParams();
@@ -50,14 +54,14 @@ function IndividualUser() {
                         <div className="flex flex-col pl-4 pr-4 gap-2 mt-4">
     
                             <div className="flex justify-between items-center">
-                                <h2 className="text-xl">Editing Account Information</h2>
-                                <button onClick={cancelEditInformation} className="border rounded-lg p-2">Cancel</button>
+                                <h2 className="text-2xl text-blue">Editing Account Information</h2>
+                                <button onClick={cancelEditInformation} className="rounded-lg p-2 text-orange hover:border-orange border-2">Cancel</button>
                             </div>
 
                             <form className="flex flex-col gap-2" onSubmit={(e) => editingAccountInformationFormSubmit(e)}>
                                 <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     First Name:
-                                    <input type="text" value={editedAccountInputs?.firstName}
+                                    <input type="text" value={editedAccountInputs?.firstName} required={true}
                                         className="border pl-1"
                                         onChange={(e) => {
                                             if (editedAccountInputs) {
@@ -70,7 +74,7 @@ function IndividualUser() {
                                 </label>
                                 <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     Last Name:
-                                    <input type="text" value={editedAccountInputs?.lastName}
+                                    <input type="text" value={editedAccountInputs?.lastName} required={true}
                                         className="border pl-1"
                                         onChange={(e) => {
                                             if (editedAccountInputs) {
@@ -83,7 +87,7 @@ function IndividualUser() {
                                 </label>
                                 <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     Email:
-                                    <input type="text" value={editedAccountInputs?.email}
+                                    <input type="text" value={editedAccountInputs?.email} required={true}
                                         className="border pl-1"
                                         onChange={(e) => {
                                             if (editedAccountInputs) {
@@ -95,8 +99,12 @@ function IndividualUser() {
                                     />
                                 </label>
                                 <label className="flex justify-between md:justify-start lg:justify-start gap-2">
-                                    Phone Number:
-                                    <input type="text" value={editedAccountInputs?.phoneNumber}
+                                    <div className="flex flex-col justify-end">
+                                        Phone Number:
+                                        <span className="text-end text-sm text-gray-600">Ex: 555-555-5555</span>
+                                    </div>
+                                    <input type="tel" value={editedAccountInputs?.phoneNumber} required={true}
+                                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                                         className="border pl-1"
                                         onChange={(e) => {
                                             if (editedAccountInputs) {
@@ -106,9 +114,10 @@ function IndividualUser() {
                                             }
                                         }}
                                     />
+
                                 </label>
 
-                                <button className="flex justify-center border">Edit</button>
+                                <button className="flex rounded-lg p-2 justify-center border bg-orange hover:bg-darkOrange text-white">Edit</button>
                             </form>
                         </div>
                     )
@@ -122,8 +131,8 @@ function IndividualUser() {
                         <div className="flex flex-col pl-4 pr-4 gap-2 mt-4">
     
                             <div className="flex justify-between items-center">
-                                <h2 className="text-xl">Account Information</h2>
-                                <button onClick={editInformation} className="border rounded-lg p-2">Edit</button>
+                                <h2 className="text-2xl text-blue">Account Information</h2>
+                                <button onClick={editInformation} className="border rounded-lg p-2 bg-orange hover:bg-darkOrange text-white">Edit</button>
                             </div>
         
                             <p>First Name: {selectedUser?.firstName}</p>
@@ -148,26 +157,26 @@ function IndividualUser() {
                         <div className="flex flex-col pl-4 pr-4 gap-2 mt-4">
     
                             <div className="flex justify-between items-center">
-                                <h2 className="text-xl">Adding Memberships</h2>
-                                <button onClick={cancelEditInformation} className="border rounded-lg p-2">Cancel</button>
+                                <h2 className="text-2xl text-blue">Adding Memberships</h2>
+                                <button onClick={cancelEditInformation} className="rounded-lg p-2 text-orange hover:border-orange border-2">Cancel</button>
                             </div>
         
                             <form className="flex flex-col gap-2" onSubmit={(e) => addingMembershipFormSubmit(e)}>
 
                                 <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     Membership Type:
-                                    <input className="border pl-1" type="text" id="add-membership-type"/>
+                                    <input className="border pl-1" type="text" id="add-membership-type" required={true}/>
                                 </label>
                                 <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     Membership Cost:
-                                    <input className="border pl-1" type="number" min="0.01" step="0.01" id="add-membership-cost"/>
+                                    <input className="border pl-1" type="number" min="0.01" step="0.01" id="add-membership-cost" required={true}/>
                                 </label>
                                 <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     Membership Vehicle:
-                                    <input className="border pl-1" type="text" id="add-membership-vehicle"/>
+                                    <input className="border pl-1" type="text" id="add-membership-vehicle" required={true}/>
                                 </label>
 
-                                <button className="flex justify-center border">Add</button>
+                                <button className="flex rounded-lg p-2 justify-center border bg-orange hover:bg-darkOrange text-white">Add</button>
                             </form>
                         </div>
                     )
@@ -181,14 +190,14 @@ function IndividualUser() {
                         <div className="flex flex-col pl-4 pr-4 gap-2 mt-4">
     
                             <div className="flex justify-between items-center">
-                                <h2 className="text-xl">Memberships</h2>
-                                <button onClick={editInformation} className="border rounded-lg p-2">Add</button>
+                                <h2 className="text-2xl text-blue">Memberships</h2>
+                                <button onClick={editInformation} className="border rounded-lg p-2 bg-orange hover:bg-darkOrange text-white">Add</button>
                             </div>
         
                             {selectedUser?.subscriptions && selectedUser?.subscriptions.length > 0
                                 ?
                                 <>
-                                    <ol className="flex flex-col list-decimal pl-4 pr-4 gap-2">
+                                    <ol className="flex flex-col list-decimal pl-4 pr-4 gap-4">
                                         {selectedUser?.subscriptions.map(subscription => {
                                             return (
                                                 <div key={subscription.id} className="flex justify-between md:justify-start lg:justify-start gap-4">
@@ -196,9 +205,9 @@ function IndividualUser() {
                                                         <li>{subscription.type} ${subscription.cost}/mo</li>
                                                         <span className="text-sm text-gray-500">{subscription.vehicle}</span>
                                                     </div>
-                                                    <div className="flex flex-col gap-1">
-                                                        <button className="border" onClick={() => triggerTransferMembership(subscription)}>Transfer</button>
-                                                        <button className="border" onClick={() => triggerDeleteMembership(subscription)}>Delete</button>
+                                                    <div className="flex gap-1">
+                                                        <button className="text-orange rounded-lg p-1 hover:border-orange border-2" onClick={() => triggerTransferMembership(subscription)}>Transfer</button>
+                                                        <button className="text-orange rounded-lg p-1 hover:border-orange border-2" onClick={() => triggerDeleteMembership(subscription)}>Delete</button>
                                                     </div>
                                                 </div>
                                             )
@@ -210,13 +219,13 @@ function IndividualUser() {
                                             <h2 className="text-lg">Are you sure you want to delete this membership?</h2>
                                             <div className="flex gap-2 justify-center">
 
-                                                <button className="border p-1 w-16 rounded-md" onClick={() => {
+                                                <button className="p-1 w-16 rounded-md text-orange hover:border-orange border-2" onClick={() => {
                                                     const deleteMembershipConfirmationModal = document.getElementById('deleteMembershipConfirmationModal') as HTMLDialogElement;
                                                     deleteMembershipConfirmationModal.close();
                                                     membershipForDeletion.current = null;
                                                 }}>No</button>
 
-                                                <button className="border p-1 w-16 rounded-md" onClick={() => {
+                                                <button className="border p-1 w-16 rounded-md bg-orange hover:bg-darkOrange text-white" onClick={() => {
                                                     if(membershipForDeletion) confirmDeleteMembership();
                                                 }}>Yes</button>
 
@@ -230,7 +239,7 @@ function IndividualUser() {
                                             <input className="pl-1" type="text" placeholder="Vehicle" id="transfer-membership-vehicle"/>
                                             <div className="flex gap-2 justify-center">
 
-                                                <button className="border p-1 w-18 rounded-md" type="button" onClick={() => {
+                                                <button className="p-1 w-18 rounded-md text-orange hover:border-orange border-2" type="button" onClick={() => {
                                                     const transferMembershipConfirmationModal = document.getElementById('transferMembershipConfirmationModal') as HTMLDialogElement;
                                                     const transferVehicleInput = document.getElementById('transfer-membership-vehicle') as HTMLInputElement;
                                                     transferMembershipConfirmationModal.close();
@@ -238,7 +247,7 @@ function IndividualUser() {
                                                     transferVehicleInput.value = "";
                                                 }}>Cancel</button>
 
-                                                <button className="border p-1 w-18 rounded-md" type="submit" onClick={() => {
+                                                <button className="border p-1 w-18 rounded-md bg-orange hover:bg-darkOrange text-white" type="submit" onClick={() => {
                                                     if(membershipForDeletion) confirmDeleteMembership();
                                                 }}>Transfer</button>
 
@@ -268,7 +277,7 @@ function IndividualUser() {
                     <div className="flex flex-col pl-4 pr-4 gap-2 mt-4">
 
                         <div className="flex items-center">
-                            <h2 className="text-xl">Purchase History</h2>
+                            <h2 className="text-2xl text-blue">Purchase History</h2>
                         </div>
 
                         <ol className="flex flex-col list-decimal pl-4 pr-4">
@@ -304,19 +313,22 @@ function IndividualUser() {
         else {
 
             // Tailwind classes for the CSR's options
-            const optionClassAttributes = "border shadow-sm cursor-pointer hover:bg-slate-100";
+            const optionClassAttributes = "border shadow-sm cursor-pointer hover:bg-slate-100 flex pl-4 pr-4 p-2";
 
             setTabSelectionDisplay(() => {
                 return (
-                    <div className="flex flex-col">
+                    <div className="flex flex-col min-w-max">
                         <div className={`${optionClassAttributes}`}>
-                            <p className="p-2" onClick={() => setAccountInformationSelected(true)}>Manage Account Information</p>
+                            <img src={carImg} className="blueIcon block w-8" alt=""/>
+                            <p className="p-2 text-blue" onClick={() => setAccountInformationSelected(true)}>Manage Account Information</p>
                         </div>
                         <div className={`${optionClassAttributes}`}>
-                            <p className="p-2" onClick={() => setMembershipSelected(true)}>Manage Memberships</p>
+                            <img src={creditCardImg} className="blueIcon w-8" alt=""/>
+                            <p className="p-2 text-blue" onClick={() => setMembershipSelected(true)}>Manage Memberships</p>
                         </div>
                         <div className={`${optionClassAttributes}`}>
-                            <p className="p-2" onClick={() => setPurchaseHistorySelected(true)}>View Purchase History</p>
+                            <img src={dollarImg} className="blueIcon w-8" alt=""/>
+                            <p className="p-2 text-blue" onClick={() => setPurchaseHistorySelected(true)}>View Purchase History</p>
                         </div>
                     </div>
                 )
@@ -333,7 +345,13 @@ function IndividualUser() {
     */
     const triggerBackButton = () => {
 
-        if(accountInformationSelected || membershipSelected || purchaseHistorySelected) {
+        if (editingAccountInformation || addingMembership) {
+            setEditingAccountInformation(false);
+            setAddingMembership(false);
+            setEditedAccountInputs(selectedUser);
+        }
+
+        else if(accountInformationSelected || membershipSelected || purchaseHistorySelected) {
             setAccountInformationSelected(false);
             setMembershipSelected(false);
             setPurchaseHistorySelected(false);
@@ -362,7 +380,10 @@ function IndividualUser() {
         the standard tab information.
     */
     const cancelEditInformation = () => {
-        if (accountInformationSelected) setEditingAccountInformation(false);
+        if (accountInformationSelected) {
+            setEditingAccountInformation(false);
+            setEditedAccountInputs(selectedUser);
+        }
         else if (membershipSelected) setAddingMembership(false);
     }
 
@@ -472,16 +493,22 @@ function IndividualUser() {
             ?
             // If the user exists render the proper information
             <>
-                <div className="flex justify-between items-center text-white bg-blue-800 pl-4 pr-4">
+                <div className="flex justify-between items-center text-white bg-blue pl-4 pr-4 min-w-max">
                     <a className="cursor-pointer text-2xl" onClick={triggerBackButton}>{"<"}</a>
                     <h1 className='text-lg p-4 text-center'>User Settings</h1>
                     <a className="cursor-pointer text-2xl" onClick={() => navigate("/")}>x</a>
                 </div>
 
-                <div className="p-4 border">
-                    <p>{selectedUser.firstName} {selectedUser.lastName}</p>
-                    <p>{selectedUser.email}</p>
+                <div className="flex items-center border p-4 min-w-max">
+                    <div className="flex shrink-0 items-center justify-center w-14 h-14 rounded-full bg-blue text-white text-2xl">
+                        {selectedUser.firstName[0]}{selectedUser.lastName[0]}
+                    </div>
+                    <div className="pl-4">
+                        <p className="text-2xl">{selectedUser.firstName} {selectedUser.lastName}</p>
+                        <p>{selectedUser.email}</p>
+                    </div>
                 </div>
+
 
                 {tabSelectionDisplay}
 

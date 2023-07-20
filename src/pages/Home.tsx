@@ -11,10 +11,6 @@ function Home() {
 
     const [displayedUsers, setDisplayedUsers] = useState<User[]>(users);
 
-    useEffect(() => {
-        console.log(users)
-    }, [])
-
     /* 
         A function triggered by the "Search User" input change 
         that will filter users by the typed input
@@ -38,10 +34,10 @@ function Home() {
 
     return (
         <div>
-            <h1 className='text-2xl p-4 text-center text-white bg-blue-800'>CSR Portal</h1>
+            <h1 className='text-lg p-4 text-center text-white bg-blue'>CSR Portal</h1>
 
             <div className='flex justify-center pl-4 mt-2 mb-2 pr-4'>
-                <input className='pl-1 w-full' type='text' placeholder='Search by name or email' onChange={filterUserBySearch}/>
+                <input className='pl-1 w-full border-2 rounded-lg text-lg' type='text' placeholder='Search by name or email' onChange={filterUserBySearch}/>
             </div>
 
             <div className='flex flex-col pl-4 pr-4 gap-1'>
