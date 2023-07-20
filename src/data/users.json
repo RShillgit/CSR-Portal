@@ -10,7 +10,8 @@
                 {
                     "id": "s0",
                     "type": "Premium",
-                    "cost": 60.00
+                    "cost": 60.00,
+                    "vehicle": "Acura MDX"
                 }
             ],
             "purchases": [
@@ -41,7 +42,8 @@
                 {
                     "id": "s1",
                     "type": "Basic",
-                    "cost": 20.00
+                    "cost": 20.00,
+                    "vehicle": "Subaru WRX"
                 }
             ],
             "purchases": [
@@ -78,7 +80,8 @@
                 {
                     "id": "s2",
                     "type": "Supreme",
-                    "cost": 90.00
+                    "cost": 90.00,
+                    "vehicle": "Volkswagen GLI"
                 }
             ],
             "purchases": [
@@ -100,7 +103,8 @@
                 {
                     "id": "s3",
                     "type": "Basic",
-                    "cost": 20.00
+                    "cost": 20.00,
+                    "vehicle": "Volkswagen Atlas"
                 }
             ],
             "purchases": [
@@ -122,7 +126,8 @@
                 {
                     "id": "s4",
                     "type": "Basic",
-                    "cost": 20.00
+                    "cost": 20.00,
+                    "vehicle": "Volkswagen GTI"
                 }
             ],
             "purchases": [
@@ -144,7 +149,8 @@
                 {
                     "id": "s5",
                     "type": "Premium",
-                    "cost": 60.00
+                    "cost": 60.00,
+                    "vehicle": "Ford Focus RS"
                 }
             ],
             "purchases": [
@@ -166,7 +172,8 @@
                 {
                     "id": "s6",
                     "type": "Supreme",
-                    "cost": 90.00
+                    "cost": 90.00,
+                    "vehicle": "Ford Focus ST"
                 }
             ],
             "purchases": [
@@ -188,7 +195,8 @@
                 {
                     "id": "s7",
                     "type": "Basic",
-                    "cost": 20.00
+                    "cost": 20.00,
+                    "vehicle": "Subaru Crosstrek"
                 }
             ],
             "purchases": [
@@ -210,7 +218,9 @@
                 {
                     "id": "s8",
                     "type": "Basic",
-                    "cost": 20.00
+                    "cost": 20.00,
+                    "vehicle": "Range Rover"
+                    
                 }
             ],
             "purchases": [
@@ -238,7 +248,8 @@
                 {
                     "id": "s9",
                     "type": "Supreme",
-                    "cost": 90.00
+                    "cost": 90.00,
+                    "vehicle": "Dodge Ram"
                 }
             ],
             "purchases": [
@@ -266,7 +277,8 @@
                 {
                     "id": "s10",
                     "type": "Premium",
-                    "cost": 60.00
+                    "cost": 60.00,
+                    "vehicle": "Toyota Tundra"
                 }
             ],
             "purchases": [
@@ -294,7 +306,8 @@
                 {
                     "id": "s11",
                     "type": "Basic",
-                    "cost": 20.00
+                    "cost": 20.00,
+                    "vehicle": "Audi R8"
                 }
             ],
             "purchases": [
@@ -322,7 +335,8 @@
                 {
                     "id": "s12",
                     "type": "Premium",
-                    "cost": 60.00
+                    "cost": 60.00,
+                    "vehicle": "Audi A5"
                 }
             ],
             "purchases": [
@@ -344,7 +358,8 @@
                 {
                     "id": "s13",
                     "type": "Basic",
-                    "cost": 20.00
+                    "cost": 20.00,
+                    "vehicle": "BMW M4"
                 }
             ],
             "purchases": [
@@ -366,7 +381,8 @@
                 {
                     "id": "s14",
                     "type": "Basic",
-                    "cost": 20.00
+                    "cost": 20.00,
+                    "vehicle": "Audi Q7"
                 }
             ],
             "purchases": [
@@ -388,7 +404,8 @@
                 {
                     "id": "s15",
                     "type": "Supreme",
-                    "cost": 90.00
+                    "cost": 90.00,
+                    "vehicle": "Ford GT"
                 }
             ],
             "purchases": [
@@ -410,7 +427,8 @@
                 {
                     "id": "s16",
                     "type": "Supreme",
-                    "cost": 90.00
+                    "cost": 90.00,
+                    "vehicle": "Dodge Viper"
                 }
             ],
             "purchases": [
@@ -432,7 +450,8 @@
                 {
                     "id": "s17",
                     "type": "Premium",
-                    "cost": 60.00
+                    "cost": 60.00,
+                    "vehicle": "Honda Accord"
                 }
             ],
             "purchases": [
@@ -454,7 +473,8 @@
                 {
                     "id": "s18",
                     "type": "Premium",
-                    "cost": 60.00
+                    "cost": 60.00,
+                    "vehicle": "Toyota Camry"
                 }
             ],
             "purchases": [

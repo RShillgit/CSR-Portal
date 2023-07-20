@@ -162,6 +162,10 @@ function IndividualUser() {
                                     Membership Cost:
                                     <input className="border pl-1" type="number" min="0.01" step="0.01" id="add-membership-cost"/>
                                 </label>
+                                <label className="flex justify-between md:justify-start lg:justify-start gap-2">
+                                    Membership Vehicle:
+                                    <input className="border pl-1" type="text" id="add-membership-vehicle"/>
+                                </label>
 
                                 <button className="flex justify-center border">Add</button>
                             </form>
@@ -181,28 +185,34 @@ function IndividualUser() {
                                 <button onClick={editInformation} className="border rounded-lg p-2">Add</button>
                             </div>
         
-                            <ol className="flex flex-col list-decimal pl-4 pr-4">
-                                {selectedUser?.subscriptions && selectedUser?.subscriptions.length > 0
-                                    ?
-                                    <>
+                            {selectedUser?.subscriptions && selectedUser?.subscriptions.length > 0
+                                ?
+                                <>
+                                    <ol className="flex flex-col list-decimal pl-4 pr-4 gap-2">
                                         {selectedUser?.subscriptions.map(subscription => {
                                             return (
                                                 <div key={subscription.id} className="flex justify-between md:justify-start lg:justify-start gap-4">
-                                                    <li>{subscription.type} ${subscription.cost}/mo</li>
-                                                    <button onClick={() => confirmDeleteMembership(subscription)}>X</button>
+                                                    <div className="flex flex-col items-end">
+                                                        <li>{subscription.type} ${subscription.cost}/mo</li>
+                                                        <span className="text-sm text-gray-500">{subscription.vehicle}</span>
+                                                    </div>
+                                                    <div className="flex flex-col gap-1">
+                                                        <button className="border">Transfer</button>
+                                                        <button className="border" onClick={() => confirmDeleteMembership(subscription)}>Delete</button>
+                                                    </div>
                                                 </div>
                                             )
                                         })}
-                                    </>
-                                    :
-                                    <>
-                                        <div>
-                                            <p>No Subscriptions</p>
-                                        </div>
-                                    </>
-                                }
+                                    </ol>
+                                </>
+                                :
+                                <>
+                                    <div>
+                                        <p>No Subscriptions</p>
+                                    </div>
+                                </>
+                            }
     
-                            </ol>
                         </div>
                     )
                 })
@@ -387,6 +397,7 @@ function IndividualUser() {
 
         const newMembershipType = document.getElementById("add-membership-type") as HTMLInputElement;
         const newMembershipCost = document.getElementById("add-membership-cost") as HTMLInputElement;
+        const newMembershipVehicle = document.getElementById("add-membership-vehicle") as HTMLInputElement;
 
         if (newMembershipType && newMembershipCost && userId) {
 
@@ -395,7 +406,8 @@ function IndividualUser() {
             const newMembership: Subscription = {
                 id: randomId,
                 type: newMembershipType.value,
-                cost: Number(newMembershipCost.value)
+                cost: Number(newMembershipCost.value),
+                vehicle: newMembershipVehicle.value,
             }
 
             membershipPostRequest(newMembership, userId);

@@ -11,7 +11,8 @@ export type User = {
 export type Subscription = {
     id: string,
     type: string,
-    cost: number
+    cost: number,
+    vehicle: string,
 }
 
 export type Purchase = {

@@ -83,7 +83,7 @@ export function UserContextProvider( { children }: UserContextProviderProps ) {
     /*
         A fake PUT request that will update purchase information by id.
     */
-    const purchasePutRequest = (body: Subscription) => {
+    const purchasePutRequest = (body: Purchase) => {
         console.log(body)
     }
 
