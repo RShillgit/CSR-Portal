@@ -187,8 +187,9 @@ function IndividualUser() {
                                     <>
                                         {selectedUser?.subscriptions.map(subscription => {
                                             return (
-                                                <div key={subscription.id}>
+                                                <div key={subscription.id} className="flex justify-between md:justify-start lg:justify-start gap-4">
                                                     <li>{subscription.type} ${subscription.cost}/mo</li>
+                                                    <button onClick={() => confirmDeleteMembership(subscription)}>X</button>
                                                 </div>
                                             )
                                         })}
@@ -317,7 +318,7 @@ function IndividualUser() {
             })
         }
 
-    }, [accountInformationSelected, membershipSelected, purchaseHistorySelected, editingAccountInformation, addingMembership, editingPurchaseHistory, editedAccountInputs, addedMembershipInputs, editedPurchaseInputs])
+    }, [users, accountInformationSelected, membershipSelected, purchaseHistorySelected, editingAccountInformation, addingMembership, editingPurchaseHistory, editedAccountInputs, addedMembershipInputs, editedPurchaseInputs])
 
 
     /*
@@ -401,6 +402,28 @@ function IndividualUser() {
         }
         setAddingMembership(false);
         return;
+    }
+
+
+    /* 
+        Called when clicking the delete button next to an existing membership.
+        This will bring up a modal that will require the user to confirm the deletion,
+        that way they dont accidentally delete a membership
+
+    */
+    const triggerDeleteMembership = (subscription: Subscription) => {
+        console.log("Open Modal");
+    }
+
+
+    /* 
+        Called when confirming the deletion of an existing membership.
+
+    */
+    const confirmDeleteMembership = (subscription: Subscription) => {
+        if (userId) {
+            membershipDeleteRequest(subscription, userId);
+        }
     }
 
 

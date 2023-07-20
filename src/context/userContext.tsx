@@ -10,7 +10,7 @@ type UserContext = {
     users: User[],
     userPutRequest: (body: User) => void,
     membershipPostRequest: (body: Subscription, userId: string) => void,
-    membershipDeleteRequest: (body: Subscription) => void,
+    membershipDeleteRequest: (body: Subscription, userId: string) => void,
     purchasePutRequest: (body: Purchase) => void,
 }
 
@@ -61,8 +61,23 @@ export function UserContextProvider( { children }: UserContextProviderProps ) {
     /*
         A fake DELETE request that will delete an existing membership.
     */
-    const membershipDeleteRequest = (body: Subscription) => {
-        console.log(body)
+    const membershipDeleteRequest = (body: Subscription, userId: string) => {
+        
+        const updatedUsersArray = users.map(user => {
+            if (user.id === Number(userId)) {
+                
+                const updatedMembershipArray = user.subscriptions.filter(subscription => subscription.id !== body.id);
+
+                user.subscriptions = updatedMembershipArray;
+
+                return user;
+            }
+            return user;
+        })
+
+        setUsers(updatedUsersArray);
+
+        localStorage.setItem('users', JSON.stringify(updatedUsersArray));
     }
 
     /*
