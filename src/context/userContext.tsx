@@ -11,6 +11,7 @@ type UserContext = {
     userPutRequest: (body: User) => void,
     membershipPostRequest: (body: Subscription, userId: string) => void,
     membershipDeleteRequest: (body: Subscription, userId: string) => void,
+    membershipPutRequest: (body: Subscription, userId: string, vehicle: string) => void
 }
 
 const userContext = createContext({} as UserContext);
@@ -58,6 +59,25 @@ export function UserContextProvider( { children }: UserContextProviderProps ) {
     }
 
     /*
+        A fake PUT request that will transfer a membership to a different vehicle.
+    */
+    const membershipPutRequest = (body: Subscription, userId: string, vehicle: string) => {
+
+        const updatedUsersArray = users.map(user => {
+            if (user.id === Number(userId)) {
+                const membershipForTransfer = user.subscriptions.find(subscription => subscription.id === body.id);
+                if(membershipForTransfer) membershipForTransfer.vehicle = vehicle;
+                return user;
+            }
+            return user;
+        })
+
+        setUsers(updatedUsersArray);
+
+        localStorage.setItem('users', JSON.stringify(updatedUsersArray));
+    }
+
+    /*
         A fake DELETE request that will delete an existing membership.
     */
     const membershipDeleteRequest = (body: Subscription, userId: string) => {
@@ -80,7 +100,7 @@ export function UserContextProvider( { children }: UserContextProviderProps ) {
     }
 
     return (
-        <userContext.Provider value={{users, userPutRequest, membershipPostRequest, membershipDeleteRequest}}>
+        <userContext.Provider value={{users, userPutRequest, membershipPostRequest, membershipDeleteRequest, membershipPutRequest}}>
             {children}
         </userContext.Provider>
     )

@@ -8,7 +8,7 @@ function IndividualUser() {
 
     const { userId } = useParams();
 
-    const { users, userPutRequest, membershipPostRequest, membershipDeleteRequest } = useUserContext();
+    const { users, userPutRequest, membershipPostRequest, membershipDeleteRequest, membershipPutRequest } = useUserContext();
 
     const navigate = useNavigate();
 
@@ -30,6 +30,9 @@ function IndividualUser() {
 
     // State varaible for the membership to be deleted
     const membershipForDeletion = useRef<Subscription | null>();
+
+    // State varaible for the membership to be transferred
+    const membershipForTransfer = useRef<Subscription | null>();
 
     // State that displays correct information based on the selected tab
     const [tabSelectionDisplay, setTabSelectionDisplay] = useState<JSX.Element>();
@@ -194,7 +197,7 @@ function IndividualUser() {
                                                         <span className="text-sm text-gray-500">{subscription.vehicle}</span>
                                                     </div>
                                                     <div className="flex flex-col gap-1">
-                                                        <button className="border">Transfer</button>
+                                                        <button className="border" onClick={() => triggerTransferMembership(subscription)}>Transfer</button>
                                                         <button className="border" onClick={() => triggerDeleteMembership(subscription)}>Delete</button>
                                                     </div>
                                                 </div>
@@ -210,6 +213,7 @@ function IndividualUser() {
                                                 <button className="border p-1 w-16 rounded-md" onClick={() => {
                                                     const deleteMembershipConfirmationModal = document.getElementById('deleteMembershipConfirmationModal') as HTMLDialogElement;
                                                     deleteMembershipConfirmationModal.close();
+                                                    membershipForDeletion.current = null;
                                                 }}>No</button>
 
                                                 <button className="border p-1 w-16 rounded-md" onClick={() => {
@@ -218,6 +222,28 @@ function IndividualUser() {
 
                                             </div>
                                         </div>
+                                    </dialog>
+
+                                    <dialog id="transferMembershipConfirmationModal" className="rounded-xl">
+                                        <form className="flex flex-col p-4 justify-center gap-2" onSubmit={(e) => confirmTransferMembership(e)}>                                     
+                                            <h2 className="text-lg">What vehicle would you like to transfer this membership to?</h2>
+                                            <input className="pl-1" type="text" placeholder="Vehicle" id="transfer-membership-vehicle"/>
+                                            <div className="flex gap-2 justify-center">
+
+                                                <button className="border p-1 w-18 rounded-md" type="button" onClick={() => {
+                                                    const transferMembershipConfirmationModal = document.getElementById('transferMembershipConfirmationModal') as HTMLDialogElement;
+                                                    const transferVehicleInput = document.getElementById('transfer-membership-vehicle') as HTMLInputElement;
+                                                    transferMembershipConfirmationModal.close();
+                                                    membershipForTransfer.current = null;
+                                                    transferVehicleInput.value = "";
+                                                }}>Cancel</button>
+
+                                                <button className="border p-1 w-18 rounded-md" type="submit" onClick={() => {
+                                                    if(membershipForDeletion) confirmDeleteMembership();
+                                                }}>Transfer</button>
+
+                                            </div>
+                                        </form>
                                     </dialog>
                                 </>
                                 :
@@ -381,6 +407,36 @@ function IndividualUser() {
         }
         setAddingMembership(false);
         return;
+    }
+
+
+    /* 
+        Called when clicking the transfer button next to an existing membership.
+        This will bring up a modal that will require the user to enter the vehicle
+        they would like to transfer the membership to.
+
+    */
+    const triggerTransferMembership = (subscription: Subscription) => {
+        membershipForTransfer.current = subscription;
+        const transferMembershipConfirmationModal = document.getElementById('transferMembershipConfirmationModal') as HTMLDialogElement;
+        transferMembershipConfirmationModal.showModal();
+    }
+
+
+    /* 
+        Called when transferring a membership to a new vehicle.
+
+    */
+    const confirmTransferMembership = (e: React.FormEvent) => {
+        e.preventDefault();
+        const transferVehicleInput = document.getElementById('transfer-membership-vehicle') as HTMLInputElement;
+        if (userId && membershipForTransfer.current && transferVehicleInput) {
+            const transferMembershipConfirmationModal = document.getElementById('transferMembershipConfirmationModal') as HTMLDialogElement;
+            membershipPutRequest(membershipForTransfer.current, userId, transferVehicleInput.value);
+            transferMembershipConfirmationModal.close();
+            membershipForTransfer.current = null;
+            transferVehicleInput.value = "";
+        }
     }
 
 
