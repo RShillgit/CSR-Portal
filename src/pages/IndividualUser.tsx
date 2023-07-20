@@ -117,7 +117,7 @@ function IndividualUser() {
 
                                 </label>
 
-                                <button className="flex rounded-lg p-2 justify-center border bg-orange hover:bg-darkOrange text-white">Edit</button>
+                                <button className="flex rounded-lg p-2 justify-center bg-orange hover:bg-darkOrange text-white">Edit</button>
                             </form>
                         </div>
                     )
@@ -132,7 +132,7 @@ function IndividualUser() {
     
                             <div className="flex justify-between items-center">
                                 <h2 className="text-2xl text-blue">Account Information</h2>
-                                <button onClick={editInformation} className="border rounded-lg p-2 bg-orange hover:bg-darkOrange text-white">Edit</button>
+                                <button onClick={editInformation} className="text-lg rounded-lg p-2 bg-orange hover:bg-darkOrange text-white">Edit</button>
                             </div>
         
                             <p>First Name: {selectedUser?.firstName}</p>
@@ -176,7 +176,7 @@ function IndividualUser() {
                                     <input className="border pl-1 text-lg" type="text" id="add-membership-vehicle" required={true}/>
                                 </label>
 
-                                <button className="flex rounded-lg p-2 justify-center border bg-orange hover:bg-darkOrange text-white">Add</button>
+                                <button className="flex text-lg rounded-lg p-2 justify-center bg-orange hover:bg-darkOrange text-white">Add</button>
                             </form>
                         </div>
                     )
@@ -191,7 +191,7 @@ function IndividualUser() {
     
                             <div className="flex justify-between items-center">
                                 <h2 className="text-2xl text-blue">Memberships</h2>
-                                <button onClick={editInformation} className="border rounded-lg p-2 bg-orange hover:bg-darkOrange text-white">Add</button>
+                                <button onClick={editInformation} className="text-lg rounded-lg p-2 bg-orange hover:bg-darkOrange text-white">Add</button>
                             </div>
         
                             {selectedUser?.subscriptions && selectedUser?.subscriptions.length > 0
@@ -225,7 +225,7 @@ function IndividualUser() {
                                                     membershipForDeletion.current = null;
                                                 }}>No</button>
 
-                                                <button className="border p-1 w-16 rounded-md bg-orange hover:bg-darkOrange text-white" onClick={() => {
+                                                <button className="text-lg p-1 w-16 rounded-md bg-orange hover:bg-darkOrange text-white" onClick={() => {
                                                     if(membershipForDeletion) confirmDeleteMembership();
                                                 }}>Yes</button>
 
@@ -247,7 +247,7 @@ function IndividualUser() {
                                                     transferVehicleInput.value = "";
                                                 }}>Cancel</button>
 
-                                                <button className="border p-1 w-18 rounded-md bg-orange hover:bg-darkOrange text-white" type="submit" onClick={() => {
+                                                <button className="text-lg p-1 w-18 rounded-md bg-orange hover:bg-darkOrange text-white" type="submit" onClick={() => {
                                                     if(membershipForDeletion) confirmDeleteMembership();
                                                 }}>Transfer</button>
 
@@ -515,9 +515,9 @@ function IndividualUser() {
             </>
             :
             // Else render error
-            <div>
-                <h1>User {userId} Not Found</h1>
-                <a className="border" href="/">Return Home</a>
+            <div className="flex flex-col items-center gap-2 mt-4 mb-4">
+                <h1 className="text-3xl text-blue">User {userId} Not Found</h1>
+                <a className="rounded-lg p-2 bg-orange hover:bg-darkOrange text-white" href="/">Return Home</a>
             </div>
         }
         </>
