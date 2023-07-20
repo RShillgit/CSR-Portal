@@ -62,7 +62,7 @@ function IndividualUser() {
                                 <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     First Name:
                                     <input type="text" value={editedAccountInputs?.firstName} required={true}
-                                        className="border pl-1"
+                                        className="border pl-1 text-lg"
                                         onChange={(e) => {
                                             if (editedAccountInputs) {
                                                 const newAccountInfo: User = {...editedAccountInputs};
@@ -75,7 +75,7 @@ function IndividualUser() {
                                 <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     Last Name:
                                     <input type="text" value={editedAccountInputs?.lastName} required={true}
-                                        className="border pl-1"
+                                        className="border pl-1 text-lg"
                                         onChange={(e) => {
                                             if (editedAccountInputs) {
                                                 const newAccountInfo: User = {...editedAccountInputs};
@@ -88,7 +88,7 @@ function IndividualUser() {
                                 <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     Email:
                                     <input type="text" value={editedAccountInputs?.email} required={true}
-                                        className="border pl-1"
+                                        className="border pl-1 text-lg"
                                         onChange={(e) => {
                                             if (editedAccountInputs) {
                                                 const newAccountInfo: User = {...editedAccountInputs};
@@ -105,7 +105,7 @@ function IndividualUser() {
                                     </div>
                                     <input type="tel" value={editedAccountInputs?.phoneNumber} required={true}
                                         pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                                        className="border pl-1"
+                                        className="border pl-1 text-lg"
                                         onChange={(e) => {
                                             if (editedAccountInputs) {
                                                 const newAccountInfo: User = {...editedAccountInputs};
@@ -165,15 +165,15 @@ function IndividualUser() {
 
                                 <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     Membership Type:
-                                    <input className="border pl-1" type="text" id="add-membership-type" required={true}/>
+                                    <input className="border pl-1 text-lg" type="text" id="add-membership-type" required={true}/>
                                 </label>
                                 <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     Membership Cost:
-                                    <input className="border pl-1" type="number" min="0.01" step="0.01" id="add-membership-cost" required={true}/>
+                                    <input className="border pl-1 text-lg" type="number" min="0.01" step="0.01" id="add-membership-cost" required={true}/>
                                 </label>
                                 <label className="flex justify-between md:justify-start lg:justify-start gap-2">
                                     Membership Vehicle:
-                                    <input className="border pl-1" type="text" id="add-membership-vehicle" required={true}/>
+                                    <input className="border pl-1 text-lg" type="text" id="add-membership-vehicle" required={true}/>
                                 </label>
 
                                 <button className="flex rounded-lg p-2 justify-center border bg-orange hover:bg-darkOrange text-white">Add</button>
@@ -236,7 +236,7 @@ function IndividualUser() {
                                     <dialog id="transferMembershipConfirmationModal" className="rounded-xl">
                                         <form className="flex flex-col p-4 justify-center gap-2" onSubmit={(e) => confirmTransferMembership(e)}>                                     
                                             <h2 className="text-lg">What vehicle would you like to transfer this membership to?</h2>
-                                            <input className="pl-1" type="text" placeholder="Vehicle" id="transfer-membership-vehicle"/>
+                                            <input className="pl-1 border text-lg" type="text" placeholder="Vehicle" id="transfer-membership-vehicle"/>
                                             <div className="flex gap-2 justify-center">
 
                                                 <button className="p-1 w-18 rounded-md text-orange hover:border-orange border-2" type="button" onClick={() => {
