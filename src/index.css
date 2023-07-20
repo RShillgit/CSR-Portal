@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-    min-width: 350px;
+    min-width: 400px;
 }
 
 .blueIcon {
