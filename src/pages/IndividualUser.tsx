@@ -236,7 +236,7 @@ function IndividualUser() {
                                     <dialog id="transferMembershipConfirmationModal" className="rounded-xl">
                                         <form className="flex flex-col p-4 justify-center gap-2" onSubmit={(e) => confirmTransferMembership(e)}>                                     
                                             <h2 className="text-lg">What vehicle would you like to transfer this membership to?</h2>
-                                            <input className="pl-1 border text-lg" type="text" placeholder="Vehicle" id="transfer-membership-vehicle"/>
+                                            <input className="pl-1 border text-lg" type="text" placeholder="Vehicle" id="transfer-membership-vehicle" required={true}/>
                                             <div className="flex gap-2 justify-center">
 
                                                 <button className="p-1 w-18 rounded-md text-orange hover:border-orange border-2" type="button" onClick={() => {
