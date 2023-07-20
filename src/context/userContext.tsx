@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import { Purchase, Subscription, User } from "../types/userTypes";
+import { Subscription, User } from "../types/userTypes";
 import { fetchUserData } from "../utils/helperFunctions";
 
 type UserContextProviderProps = {

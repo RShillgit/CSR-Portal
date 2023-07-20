@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useUserContext } from "../context/userContext";
 import React, { useEffect, useRef, useState } from "react";
-import { Purchase, Subscription, User } from "../types/userTypes";
+import { Subscription, User } from "../types/userTypes";
 import { v4 as uuid } from 'uuid';
 
 import carImg from '../assets/images/car.png';
